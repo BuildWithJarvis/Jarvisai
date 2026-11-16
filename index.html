@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#080d18" />
+  <meta name="description" content="Jarvis AI — your smart Nigerian assistant for learning, writing and business." />
+  <title>Jarvis AI — Your Smart Nigerian Assistant</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <section class="landing-page" id="landingPage">
+    <header class="landing-nav">
+      <a class="brand" href="#landingPage" aria-label="Jarvis AI home">
+        <span class="brand-mark">✦</span><span>JARVIS<span class="brand-blue">AI</span></span>
+      </a>
+      <a class="landing-nav-link" href="#landingFeatures">Explore features</a>
+      <button class="landing-nav-link" id="loginBtn" type="button">Login</button>
+<button class="primary-btn" id="signupBtn" type="button">Sign Up</button>
+      <button class="primary-btn landing-nav-cta" id="landingOpenBtn" type="button">Try Jarvis <span>→</span></button>
+    </header>
+
+    <main>
+      <section class="landing-hero">
+        <div class="landing-copy">
+          <p class="eyebrow"><span class="status-dot"></span> YOUR SMART EVERYDAY ASSISTANT</p>
+          <h1>Ideas move faster<br />with <span>JARVIS AI.</span></h1>
+          <p class="landing-description">A helpful AI workspace for learning, writing, planning and growing your ideas — designed with everyday users in mind.</p>
+          <div class="landing-actions">
+            <button class="primary-btn" id="heroOpenBtn" type="button">Explore the free demo <span>→</span></button>
+            <a class="secondary-link" href="#landingFeatures">See what you can do</a>
+          </div>
+          <p class="landing-small-note">Free to explore during our launch phase. No payment details needed.</p>
+        </div>
+        <div class="landing-visual" aria-hidden="true">
+          <div class="landing-glow"></div>
+          <div class="landing-orbit orbit-one"></div><div class="landing-orbit orbit-two"></div>
+          <div class="landing-logo-orb">✦</div>
+          <div class="float-card float-card-top"><span>✎</span><div><b>Write with clarity</b><small>Turn ideas into drafts</small></div></div>
+          <div class="float-card float-card-bottom"><span>▤</span><div><b>Learn step by step</b><small>Make topics easier to understand</small></div></div>
+        </div>
+      </section>
+
+      <section class="landing-features" id="landingFeatures">
+        <div class="landing-section-heading"><p class="eyebrow">ONE WORKSPACE, MANY POSSIBILITIES</p><h2>What can you do with Jarvis?</h2><p>Start with a question, a school topic, a writing task or a business idea.</p></div>
+        <div class="landing-feature-grid">
+          <article class="landing-feature-card"><span>◉</span><h3>Ask Jarvis</h3><p>Explore questions and get help organising your thoughts.</p></article>
+          <article class="landing-feature-card"><span>✎</span><h3>Write for me</h3><p>Get a starting point for posts, articles, emails and stories.</p></article>
+          <article class="landing-feature-card"><span>▤</span><h3>Study helper</h3><p>Break learning topics into clear steps and study notes.</p></article>
+          <article class="landing-feature-card"><span>▣</span><h3>Business helper</h3><p>Think through an idea, audience and practical next steps.</p></article>
+        </div>
+      </section>
+      <section class="landing-bottom-cta"><div><p class="eyebrow">YOUR NEXT IDEA STARTS HERE</p><h2>Ready to explore?</h2><p>Open the Jarvis demo workspace and try the tools.</p></div><button class="primary-btn" id="bottomOpenBtn" type="button">Open Jarvis <span>→</span></button></section>
+    </main>
+    <footer class="landing-footer"><span>✦ JARVIS AI</span><span>Build ideas. Learn more. Keep growing.</span><span>Early preview · Demo responses</span></footer>
+  </section>
+
+<!-- JARVIS AI Authentication -->
+<section class="auth-screen" id="authScreen" style="display:none;">
+
+  <div class="auth-card">
+    <a class="brand" href="#landingPage">
+      <span class="brand-mark">✦</span>
+      <span>JARVIS<span class="brand-blue">AI</span></span>
+    </a>
+
+    <div id="signupForm">
+      <h1>Create your account</h1>
+      <p>Join JARVIS AI and start exploring.</p>
+
+      <label for="signupName">Full name</label>
+      <input id="signupName" type="text" placeholder="Enter your full name">
+
+      <label for="signupEmail">Email address</label>
+      <input id="signupEmail" type="email" placeholder="Enter your email">
+
+      <label for="signupPassword">Password</label>
+      <input id="signupPassword" type="password" placeholder="Create a password">
+
+      <button class="primary-btn" id="signupSubmit" type="button">
+        Create Account
+      </button>
+
+      <button class="google-btn" id="googleSignup" type="button">
+        Continue with Google
+      </button>
+
+      <p>Already have an account?
+        <button id="showLogin" type="button">Login</button>
+      </p>
+    </div>
+
+    <div id="loginForm" style="display:none;">
+      <h1>Welcome back</h1>
+      <p>Log in to your JARVIS AI account.</p>
+
+      <label for="loginEmail">Email address</label>
+      <input id="loginEmail" type="email" placeholder="Enter your email">
+
+      <label for="loginPassword">Password</label>
+      <input id="loginPassword" type="password" placeholder="Enter your password">
+
+      <button class="primary-btn" id="loginSubmit" type="button">
+        Login
+      </button>
+
+      <button class="google-btn" id="googleLogin" type="button">
+        Continue with Google
+      </button>
+
+      <p>New to JARVIS AI?
+        <button id="showSignup" type="button">Create account</button>
+      </p>
+    </div>
+
+    <p id="authMessage" role="status"></p>
+
+    <button id="backToLanding" type="button">
+      ← Back to home
+    </button>
+  </div>
+</section>
+
+  <div class="app-shell hidden-app">
+    <aside class="sidebar" id="sidebar">
+      <a class="brand" href="#" data-page="home" aria-label="Jarvis AI home">
+        <span class="brand-mark">✦</span>
+        <span>JARVIS<span class="brand-blue">AI</span></span>
+      </a>
+      <div class="side-label">WORKSPACE</div>
+      <nav class="nav-list" aria-label="Main navigation">
+        <button class="nav-item active" data-page="home"><span>⌂</span> Overview</button>
+        <button class="nav-item" data-page="chat"><span>◉</span> Ask Jarvis</button>
+        <button class="nav-item" data-page="write"><span>✎</span> Write for me</button>
+        <button class="nav-item" data-page="study"><span>▤</span> Study helper</button>
+        <button class="nav-item" data-page="business"><span>▣</span> Business helper</button>
+      </nav>
+      <div class="side-label tools-label">TOOLS</div>
+      <nav class="nav-list">
+        <button class="nav-item" data-page="saved"><span>☆</span> Saved items</button>
+        <button class="nav-item" data-page="settings"><span>⚙</span> Settings</button>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="mini-status"><span class="status-dot"></span><span>Prototype mode</span></div>
+        <p>Built for ideas, learning and growth.</p>
+      </div>
+    </aside>
+
+    <main class="main-area">
+      <header class="topbar">
+        <button class="icon-btn menu-btn" id="menuBtn" aria-label="Open menu">☰</button>
+        <div class="breadcrumb"><span>Workspace</span><b>/</b><strong id="pageCrumb">Overview</strong></div>
+        <div class="top-actions">
+          <span class="mode-pill"><span class="status-dot"></span> Demo</span>
+          <button class="avatar" id="profileBtn" aria-label="Profile">J</button>
+        </div>
+      </header>
+
+      <section class="page active-page" id="page-home">
+        <div class="welcome-row">
+          <div>
+            <p class="eyebrow">YOUR SMART ASSISTANT</p>
+            <h1>Good to see you.<br /><span>What are we creating today?</span></h1>
+            <p class="muted welcome-copy">Learn something new, turn an idea into words, or plan your next move.</p>
+          </div>
+          <div class="hero-orb" aria-hidden="true"><div class="orb-core">✦</div><i></i><i></i><i></i></div>
+        </div>
+
+        <div class="quick-grid">
+          <button class="quick-card blue-card" data-page="chat">
+            <span class="quick-icon">◉</span><span class="card-arrow">↗</span>
+            <strong>Ask Jarvis</strong><small>Get help with questions and ideas</small>
+          </button>
+          <button class="quick-card" data-page="write">
+            <span class="quick-icon">✎</span><span class="card-arrow">↗</span>
+            <strong>Write for me</strong><small>Draft posts, letters and articles</small>
+          </button>
+          <button class="quick-card" data-page="study">
+            <span class="quick-icon">▤</span><span class="card-arrow">↗</span>
+            <strong>Study helper</strong><small>Understand school topics</small>
+          </button>
+          <button class="quick-card" data-page="business">
+            <span class="quick-icon">▣</span><span class="card-arrow">↗</span>
+            <strong>Business helper</strong><small>Explore and organise ideas</small>
+          </button>
+        </div>
+
+        <div class="section-heading">
+          <div><p class="eyebrow">GET STARTED</p><h2>Your workspace</h2></div>
+          <span class="subtle-tag">A little progress adds up</span>
+        </div>
+        <div class="workspace-grid">
+          <article class="info-card">
+            <div class="info-icon">✦</div><h3>One place for your ideas</h3>
+            <p>Use the tools on the left to explore writing, learning and business tasks.</p>
+            <button class="text-link" data-page="chat">Start a conversation <span>→</span></button>
+          </article>
+          <article class="info-card">
+            <div class="info-icon violet">⌁</div><h3>Made for everyday use</h3>
+            <p>Jarvis is being designed with a clear interface that works on smaller screens.</p>
+            <button class="text-link" data-page="settings">View settings <span>→</span></button>
+          </article>
+        </div>
+        <p class="prototype-note">This is an early frontend prototype. AI answers are sample/demo responses until a secure AI service is connected.</p>
+      </section>
+
+      <section class="page" id="page-chat">
+        <div class="page-heading"><p class="eyebrow">YOUR AI COMPANION</p><h1>Ask <span>Jarvis</span></h1><p class="muted">Ask a question, explore an idea or get a simple explanation.</p></div>
+        <div class="chat-panel">
+          <div class="chat-messages" id="chatMessages">
+            <div class="message assistant"><div class="message-avatar">✦</div><div><span class="sender">JARVIS</span><p>Hello! I'm Jarvis AI. What would you like to work on today?</p></div></div>
+          </div>
+          <form class="chat-form" id="chatForm">
+            <textarea id="chatInput" rows="1" placeholder="Message Jarvis..." aria-label="Message Jarvis"></textarea>
+            <button class="send-btn" type="submit" aria-label="Send message">↑</button>
+          </form>
+          <p class="tiny-note">Demo mode: don't enter passwords, private information or sensitive details.</p>
+        </div>
+      </section>
+
+      <section class="page" id="page-write">
+        <div class="page-heading"><p class="eyebrow">WORDS MADE EASIER</p><h1>Write for <span>me</span></h1><p class="muted">Choose a format and tell Jarvis what you need.</p></div>
+        <div class="tool-panel">
+          <label for="writeType">What would you like to write?</label>
+          <select id="writeType">
+            <option value="social">Social media post</option><option value="article">Article outline</option><option value="email">Professional email</option><option value="bio">Short bio</option><option value="story">Story idea</option>
+          </select>
+          <label for="writePrompt">Describe your topic</label>
+          <textarea id="writePrompt" rows="4" placeholder="Example: A helpful Instagram post about preparing for exams..."></textarea>
+          <button class="primary-btn" id="writeBtn">Create a draft <span>→</span></button>
+          <div class="output-box hidden" id="writeOutput"><div class="output-head"><strong>Your draft</strong><button class="small-btn" id="copyDraft">Copy</button></div><pre id="writeResult"></pre></div>
+        </div>
+      </section>
+
+      <section class="page" id="page-study">
+        <div class="page-heading"><p class="eyebrow">LEARN WITH CONFIDENCE</p><h1>Study <span>helper</span></h1><p class="muted">Break a topic into simpler steps and practise what you've learned.</p></div>
+        <div class="tool-panel">
+          <label for="studyLevel">Study area</label>
+          <select id="studyLevel"><option>JAMB preparation</option><option>WAEC preparation</option><option>Secondary school</option><option>General learning</option></select>
+          <label for="studyTopic">What topic are you studying?</label>
+          <textarea id="studyTopic" rows="3" placeholder="Example: Photosynthesis in Biology"></textarea>
+          <button class="primary-btn" id="studyBtn">Explain this topic <span>→</span></button>
+          <div class="output-box hidden" id="studyOutput"><strong>Study notes</strong><div id="studyResult"></div></div>
+        </div>
+      </section>
+
+      <section class="page" id="page-business">
+        <div class="page-heading"><p class="eyebrow">TURN IDEAS INTO ACTION</p><h1>Business <span>helper</span></h1><p class="muted">Organise an idea, understand your audience and plan a next step.</p></div>
+        <div class="tool-panel">
+          <label for="businessIdea">Describe your business idea</label>
+          <textarea id="businessIdea" rows="4" placeholder="Example: I want to sell affordable digital study planners to students..."></textarea>
+          <button class="primary-btn" id="businessBtn">Create a simple plan <span>→</span></button>
+          <div class="output-box hidden" id="businessOutput"><strong>Your starter plan</strong><div id="businessResult"></div></div>
+        </div>
+      </section>
+
+      <section class="page" id="page-saved">
+        <div class="page-heading"><p class="eyebrow">YOUR COLLECTION</p><h1>Saved <span>items</span></h1><p class="muted">Your saved drafts will appear here in a later version.</p></div>
+        <div class="empty-state"><div>☆</div><h3>Nothing saved yet</h3><p>When saving is added, you'll be able to keep useful drafts here.</p></div>
+      </section>
+
+      <section class="page" id="page-settings">
+        <div class="page-heading"><p class="eyebrow">MAKE IT YOURS</p><h1>Settings</h1><p class="muted">Basic preferences for this prototype.</p></div>
+        <div class="settings-card"><div><strong>App name</strong><p>Jarvis AI — Your Smart Nigerian Assistant</p></div><div><strong>Current version</strong><p>Prototype 0.1</p></div><div><strong>Language support</strong><p>English first. Pidgin, Yoruba, Igbo and Hausa are planned.</p></div><div><strong>Privacy reminder</strong><p>This demo does not have real user accounts or secure cloud storage yet.</p></div></div>
+      </section>
+
+      <footer class="footer"><span>✦ JARVIS AI</span><span>Build ideas. Learn more. Keep growing.</span></footer>
+    </main>
+  </div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script type="module" src="script.js"></script>
+</body>
+</html>
