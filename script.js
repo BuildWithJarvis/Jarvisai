@@ -248,3 +248,22 @@ onAuthStateChanged(auth, user => {
     showWorkspace();
   }
 });
+// JARVIS AI Logout
+const logoutButton = document.getElementById('logoutBtn');
+
+if (logoutButton) {
+  logoutButton.addEventListener('click', async () => {
+    try {
+      await signOut(auth);
+
+      document.querySelector('.app-shell').classList.add('hidden-app');
+      document.getElementById('authScreen').style.display = 'none';
+      document.getElementById('landingPage').style.display = 'block';
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } catch (error) {
+      console.error('Logout failed:', error);
+      showAuthMessage('Unable to log out. Please try again.');
+    }
+  });
+}
