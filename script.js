@@ -252,7 +252,8 @@ onAuthStateChanged(auth, user => {
 const logoutButton = document.getElementById('logoutBtn');
 
 if (logoutButton) {
-  logoutButton.addEventListener('click', async () => {
+logoutButton.addEventListener('click', async () => {
+    alert('Logout button is working!');
     try {
       await signOut(auth);
 
