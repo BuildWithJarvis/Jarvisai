@@ -6,6 +6,7 @@ import {
   signInWithEmailAndPassword,
   GoogleAuthProvider,
   signInWithRedirect,
+  signInWithPopup
   getRedirectResult,
   updateProfile,
   onAuthStateChanged,
@@ -228,8 +229,14 @@ document.getElementById('loginSubmit').addEventListener('click', async () => {
 async function googleLogin() {
   try {
     showAuthMessage('Opening Google sign-in...');
-    await signInWithRedirect(auth, googleProvider);
+
+    const result = await signInWithPopup(auth, googleProvider);
+
+    if (result.user) {
+      showWorkspace();
+    }
   } catch (error) {
+    console.error('Google sign-in error:', error);
     showAuthMessage(error.message);
   }
 }
