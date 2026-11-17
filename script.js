@@ -238,9 +238,16 @@ document.getElementById('googleSignup').addEventListener('click', googleLogin);
 document.getElementById('googleLogin').addEventListener('click', googleLogin);
 
 // Check Google sign-in after redirect
-getRedirectResult(auth).catch(error => {
-  showAuthMessage(error.message);
-});
+getRedirectResult(auth)
+  .then(result => {
+    if (result && result.user) {
+      showWorkspace();
+    }
+  })
+  .catch(error => {
+    console.error('Google sign-in error:', error);
+    showAuthMessage(error.message);
+  });
 
 // Monitor signed-in users
 onAuthStateChanged(auth, user => {
