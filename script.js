@@ -259,10 +259,10 @@ getRedirectResult(auth)
 // Monitor signed-in users
 onAuthStateChanged(auth, user => {
   if (user) {
-    console.log('SIGNED IN:', user.email);
+    showAuthMessage('Signed in as: ' + user.email);
     showWorkspace();
   } else {
-    console.log('NO SIGNED-IN USER');
+    showAuthMessage('Firebase says: No signed-in user.');
   }
 });
 // JARVIS AI Logout
