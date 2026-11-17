@@ -252,7 +252,10 @@ getRedirectResult(auth)
 // Monitor signed-in users
 onAuthStateChanged(auth, user => {
   if (user) {
+    console.log('SIGNED IN:', user.email);
     showWorkspace();
+  } else {
+    console.log('NO SIGNED-IN USER');
   }
 });
 // JARVIS AI Logout
