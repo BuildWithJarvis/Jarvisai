@@ -85,7 +85,15 @@ if (saveProfileBtn) {
       const avatar = document.getElementById('profileBtn');
 
       if (welcomeName) welcomeName.textContent = firstName;
-      if (avatar) avatar.textContent = firstName.charAt(0).toUpperCase();
+      const initials = newName
+  .trim()
+  .split(/\s+/)
+  .filter(Boolean)
+  .slice(0, 2)
+  .map(part => part.charAt(0).toUpperCase())
+  .join('');
+
+if (avatar) avatar.textContent = initials;
 
     } catch (error) {
       console.error('Profile update failed:', error);
@@ -243,7 +251,15 @@ async function showWorkspace() {
     }
 
     if (avatar) {
-      avatar.textContent = firstName.charAt(0).toUpperCase();
+      const initials = name
+  .trim()
+  .split(/\s+/)
+  .filter(Boolean)
+  .slice(0, 2)
+  .map(part => part.charAt(0).toUpperCase())
+  .join('');
+
+avatar.textContent = initials;
       avatar.setAttribute('aria-label', 'Profile: ' + (name || 'User'));
     }
   }
