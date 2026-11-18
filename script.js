@@ -205,6 +205,12 @@ async function saveChatMessage(message, sender) {
 
   } catch (error) {
     console.error("Chat saving failed:", error);
+
+alert(
+  "Chat saving failed:\n" +
+  error.code + "\n" +
+  error.message
+);
   }
 }
 
