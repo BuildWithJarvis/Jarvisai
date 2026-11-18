@@ -12,10 +12,10 @@ import {
   signOut
 } from "https://www.gstatic.com/firebasejs/13.3.0/firebase-auth.js";
 
-
 import {
   getFirestore,
   doc,
+  getDoc,
   setDoc,
   serverTimestamp
 } from "https://www.gstatic.com/firebasejs/13.3.0/firebase-firestore.js";
@@ -153,7 +153,8 @@ function showAuthMessage(message) {
 
 
 
-function showWorkspace() {
+
+async function showWorkspace() {
   document.getElementById('landingPage').style.display = 'none';
   document.getElementById('authScreen').style.display = 'none';
   document.querySelector('.app-shell').classList.remove('hidden-app');
@@ -163,8 +164,21 @@ function showWorkspace() {
   const welcomeName = document.getElementById('welcomeName');
 
   if (user) {
-    const name = user.displayName || user.email || 'there';
-    const firstName = name.trim().split(' ')[0];
+    let name = user.displayName || '';
+
+    try {
+      const userRef = doc(db, 'users', user.uid);
+      const userSnapshot = await getDoc(userRef);
+
+      if (userSnapshot.exists()) {
+        const profile = userSnapshot.data();
+        name = profile.name || name;
+      }
+    } catch (error) {
+      console.error('Could not load user profile:', error);
+    }
+
+    const firstName = name.trim().split(' ')[0] || 'there';
 
     if (welcomeName) {
       welcomeName.textContent = firstName;
@@ -172,12 +186,13 @@ function showWorkspace() {
 
     if (avatar) {
       avatar.textContent = firstName.charAt(0).toUpperCase();
-      avatar.setAttribute('aria-label', 'Profile: ' + name);
+      avatar.setAttribute('aria-label', 'Profile: ' + (name || 'User'));
     }
   }
 
   navigate('home');
 }
+
 
 
 
