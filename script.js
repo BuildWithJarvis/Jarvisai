@@ -228,6 +228,8 @@ async function showWorkspace() {
   const user = auth.currentUser;
   const avatar = document.getElementById('profileBtn');
   const welcomeName = document.getElementById('welcomeName');
+  const profileDisplayName = document.getElementById('profileDisplayName');
+const profileEmail = document.getElementById('profileEmail');
 
   if (user) {
     let name = user.displayName || '';
@@ -245,6 +247,13 @@ async function showWorkspace() {
     }
 
     const firstName = name.trim().split(' ')[0] || 'there';
+    if (profileDisplayName) {
+  profileDisplayName.textContent = name || 'Not set';
+}
+
+if (profileEmail) {
+  profileEmail.textContent = user.email || 'Not available';
+}
 
     if (welcomeName) {
       welcomeName.textContent = firstName;
