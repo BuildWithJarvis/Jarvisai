@@ -37,6 +37,58 @@ const db = getFirestore(app);
 console.log("JARVIS AI Firebase initialized successfully!");
 
 async function saveUserProfile(user) {
+  
+const saveProfileBtn = document.getElementById('saveProfileBtn');
+
+if (saveProfileBtn) {
+  saveProfileBtn.addEventListener('click', async () => {
+    const user = auth.currentUser;
+    const nameInput = document.getElementById('profileNameInput');
+    const profileMessage = document.getElementById('profileMessage');
+
+    if (!user) {
+      profileMessage.textContent = 'Please sign in first.';
+      return;
+    }
+
+    const newName = nameInput.value.trim();
+
+    if (!newName) {
+      profileMessage.textContent = 'Please enter your name.';
+      return;
+    }
+
+    try {
+      saveProfileBtn.disabled = true;
+      profileMessage.textContent = 'Saving your profile...';
+
+      await updateProfile(user, {
+        displayName: newName
+      });
+
+      await saveUserProfile(user);
+
+      profileMessage.textContent = 'Profile updated successfully!';
+
+      const firstName = newName.split(' ')[0];
+      const welcomeName = document.getElementById('welcomeName');
+      const avatar = document.getElementById('profileBtn');
+
+      if (welcomeName) welcomeName.textContent = firstName;
+
+      if (avatar) {
+        avatar.textContent = firstName.charAt(0).toUpperCase();
+      }
+
+    } catch (error) {
+      console.error('Profile update failed:', error);
+      profileMessage.textContent = 'Could not update profile. Please try again.';
+    } finally {
+      saveProfileBtn.disabled = false;
+    }
+  });
+}
+
   if (!user) return;
 
   const userRef = doc(db, "users", user.uid);
@@ -70,6 +122,16 @@ function navigate(page){
   document.getElementById('pageCrumb').textContent=pageNames[page];
   sidebar.classList.remove('open');
   window.scrollTo({top:0,behavior:'smooth'});
+  
+if (page === 'profile') {
+  const user = auth.currentUser;
+  const nameInput = document.getElementById('profileNameInput');
+
+  if (user && nameInput) {
+    nameInput.value = user.displayName || '';
+  }
+}
+
 }
 document.querySelectorAll('[data-page]').forEach(el=>el.addEventListener('click',()=>navigate(el.dataset.page)));
 document.getElementById('menuBtn').addEventListener('click',()=>sidebar.classList.toggle('open'));
