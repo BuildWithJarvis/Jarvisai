@@ -154,8 +154,8 @@ async function saveChatMessage(message, sender) {
   const user = auth.currentUser;
 
   if (!user) {
-    console.warn("Sign in to save chat history.");
-    return;
+  alert("No signed-in Firebase user detected. Please sign in again.");
+  return;
   }
 
   try {
