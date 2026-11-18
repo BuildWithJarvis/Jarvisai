@@ -500,10 +500,18 @@ getRedirectResult(auth)
   });
 
 // Monitor signed-in users
-onAuthStateChanged(auth, user => {
+onAuthStateChanged(auth, async user => {
   if (user) {
-    showAuthMessage('Signed in as: ' + user.email);
-    showWorkspace();
+    try {
+      await saveUserProfile(user);
+
+      showAuthMessage('Signed in as: ' + user.email);
+      showWorkspace();
+
+    } catch (error) {
+      console.error('Profile saving failed:', error);
+      showAuthMessage('Profile saving failed: ' + error.message);
+    }
   } else {
     showAuthMessage('Firebase says: No signed-in user.');
   }
