@@ -36,8 +36,21 @@ const db = getFirestore(app);
 
 console.log("JARVIS AI Firebase initialized successfully!");
 
+
 async function saveUserProfile(user) {
-  
+  if (!user) return;
+
+  const userRef = doc(db, "users", user.uid);
+
+  await setDoc(userRef, {
+    uid: user.uid,
+    name: user.displayName || "",
+    email: user.email || "",
+    photoURL: user.photoURL || "",
+    updatedAt: serverTimestamp()
+  }, { merge: true });
+}
+
 const saveProfileBtn = document.getElementById('saveProfileBtn');
 
 if (saveProfileBtn) {
@@ -62,10 +75,7 @@ if (saveProfileBtn) {
       saveProfileBtn.disabled = true;
       profileMessage.textContent = 'Saving your profile...';
 
-      await updateProfile(user, {
-        displayName: newName
-      });
-
+      await updateProfile(user, { displayName: newName });
       await saveUserProfile(user);
 
       profileMessage.textContent = 'Profile updated successfully!';
@@ -75,32 +85,17 @@ if (saveProfileBtn) {
       const avatar = document.getElementById('profileBtn');
 
       if (welcomeName) welcomeName.textContent = firstName;
-
-      if (avatar) {
-        avatar.textContent = firstName.charAt(0).toUpperCase();
-      }
+      if (avatar) avatar.textContent = firstName.charAt(0).toUpperCase();
 
     } catch (error) {
       console.error('Profile update failed:', error);
-      profileMessage.textContent = 'Could not update profile. Please try again.';
+      profileMessage.textContent = 'Could not update profile: ' + error.message;
     } finally {
       saveProfileBtn.disabled = false;
     }
   });
 }
 
-  if (!user) return;
-
-  const userRef = doc(db, "users", user.uid);
-
-  await setDoc(userRef, {
-    uid: user.uid,
-    name: user.displayName || "",
-    email: user.email || "",
-    photoURL: user.photoURL || "",
-    updatedAt: serverTimestamp()
-  }, { merge: true });
-}
 
 
 const pages = ['home','chat','write','study','business','saved','profile','settings'];
