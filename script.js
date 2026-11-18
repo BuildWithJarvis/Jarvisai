@@ -129,12 +129,26 @@ function showAuthMessage(message) {
   document.getElementById('authMessage').textContent = message;
 }
 
+
 function showWorkspace() {
   document.getElementById('landingPage').style.display = 'none';
   document.getElementById('authScreen').style.display = 'none';
   document.querySelector('.app-shell').classList.remove('hidden-app');
+
+  const user = auth.currentUser;
+  const avatar = document.getElementById('profileBtn');
+
+  if (user && avatar) {
+    const name = user.displayName || user.email || 'Jarvis';
+    const initial = name.trim().charAt(0).toUpperCase();
+
+    avatar.textContent = initial;
+    avatar.setAttribute('aria-label', 'Profile: ' + name);
+  }
+
   navigate('home');
 }
+
 
 function showLoginScreen() {
   document.getElementById('authScreen').style.display = 'flex';
