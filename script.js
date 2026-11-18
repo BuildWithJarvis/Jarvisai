@@ -12,13 +12,20 @@ import {
   signOut
 } from "https://www.gstatic.com/firebasejs/13.3.0/firebase-auth.js";
 
+
 import {
   getFirestore,
   doc,
   getDoc,
   setDoc,
-  serverTimestamp
+  serverTimestamp,
+  addDoc,
+  collection,
+  getDocs,
+  query,
+  orderBy
 } from "https://www.gstatic.com/firebasejs/13.3.0/firebase-firestore.js";
+
 
 const firebaseConfig = {
 apiKey: "AIzaSyA8G_o4VGKX3XYTLBNgaML20r-S6ukXdIc",
@@ -140,6 +147,68 @@ document.querySelectorAll('[data-page]').forEach(el=>el.addEventListener('click'
 document.getElementById('menuBtn').addEventListener('click',()=>sidebar.classList.toggle('open'));
 document.getElementById('profileBtn').addEventListener('click',()=>navigate('profile'));
 
+
+let activeConversationId = null;
+
+async function saveChatMessage(message, sender) {
+  const user = auth.currentUser;
+
+  if (!user) {
+    console.warn("Sign in to save chat history.");
+    return;
+  }
+
+  try {
+    // Create a conversation when the first message is sent
+    if (!activeConversationId) {
+      const conversationRef = await addDoc(
+        collection(db, "users", user.uid, "conversations"),
+        {
+          title: message.slice(0, 60),
+          createdAt: serverTimestamp(),
+          updatedAt: serverTimestamp()
+        }
+      );
+
+      activeConversationId = conversationRef.id;
+    }
+
+    // Save the message
+    await addDoc(
+      collection(
+        db,
+        "users",
+        user.uid,
+        "conversations",
+        activeConversationId,
+        "messages"
+      ),
+      {
+        text: message,
+        sender: sender,
+        createdAt: serverTimestamp()
+      }
+    );
+
+    // Update the conversation's latest activity
+    await setDoc(
+      doc(
+        db,
+        "users",
+        user.uid,
+        "conversations",
+        activeConversationId
+      ),
+      { updatedAt: serverTimestamp() },
+      { merge: true }
+    );
+
+  } catch (error) {
+    console.error("Chat saving failed:", error);
+  }
+}
+
+
 function addMessage(text,who){
   const wrap=document.createElement('div');
   wrap.className=`message ${who}`;
@@ -157,11 +226,29 @@ function demoReply(question){
   if(q.includes('write')||q.includes('post')||q.includes('article')) return 'I can help you plan a clear introduction, organise the main points and finish with a useful call to action. Open “Write for me” to try a writing template. This is a sample response in prototype mode.';
   return 'Thanks for your question. The Jarvis chat screen is working, but it is currently using demo responses rather than a live AI model. We can connect a real AI service later through a secure backend.';
 }
-document.getElementById('chatForm').addEventListener('submit',e=>{
-  e.preventDefault(); const input=document.getElementById('chatInput'); const value=input.value.trim();
-  if(!value)return; addMessage(value,'user'); input.value='';
-  setTimeout(()=>addMessage(demoReply(value),'assistant'),350);
+
+document.getElementById('chatForm').addEventListener('submit', async e => {
+  e.preventDefault();
+
+  const input = document.getElementById('chatInput');
+  const value = input.value.trim();
+
+  if (!value) return;
+
+  addMessage(value, 'user');
+  input.value = '';
+
+  await saveChatMessage(value, 'user');
+
+  setTimeout(async () => {
+    const reply = demoReply(value);
+
+    addMessage(reply, 'assistant');
+
+    await saveChatMessage(reply, 'assistant');
+  }, 350);
 });
+
 
 const writeSamples={
   social:(topic)=>`Here is a simple post idea about ${topic}:\n\nSmall steps can lead to meaningful progress. Take time to learn, practise and ask questions when you need help. Your journey does not have to look like anyone else's.\n\nWhat is one thing you are working on this week? Share it below.\n\n#Learning #PersonalGrowth`,
