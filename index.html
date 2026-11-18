@@ -267,8 +267,47 @@
         <div class="page-heading"><p class="eyebrow">YOUR COLLECTION</p><h1>Saved <span>items</span></h1><p class="muted">Your saved drafts will appear here in a later version.</p></div>
         <div class="empty-state"><div>☆</div><h3>Nothing saved yet</h3><p>When saving is added, you'll be able to keep useful drafts here.</p></div>
       </section>
+<section class="page" id="page-profile">
+  <div class="page-heading">
+    <p class="eyebrow">YOUR ACCOUNT</p>
+    <h1>My <span>Profile</span></h1>
+    <p class="muted">Manage your personal information.</p>
+  </div>
 
+  <div class="settings-card profile-card">
+    <div class="profile-photo-section">
+      <div class="profile-photo" id="profilePhotoPreview">J</div>
+
+      <div>
+        <strong>Profile picture</strong>
+        <p class="muted">Choose a picture from your phone.</p>
+        <input
+          type="file"
+          id="profilePhotoInput"
+          accept="image/*"
+        >
+      </div>
+    </div>
+
+    <div class="profile-form">
+      <label for="profileNameInput">Display name</label>
+      <input
+        type="text"
+        id="profileNameInput"
+        placeholder="Enter your name"
+      >
+
+      <button type="button" class="btn btn-primary" id="saveProfileBtn">
+        Save changes
+      </button>
+
+      <p id="profileMessage" role="status"></p>
+    </div>
+  </div>
+</section>
+      
       <section class="page" id="page-settings">
+        
         <div class="page-heading"><p class="eyebrow">MAKE IT YOURS</p><h1>Settings</h1><p class="muted">Basic preferences for this prototype.</p></div>
         <div class="settings-card"><div><strong>App name</strong><p>Jarvis AI — Your Smart Nigerian Assistant</p></div><div><strong>Current version</strong><p>Prototype 0.1</p></div><div><strong>Language support</strong><p>English first. Pidgin, Yoruba, Igbo and Hausa are planned.</p></div><div><strong>Privacy reminder</strong><p>This demo does not have real user accounts or secure cloud storage yet.</p></div></div>
       </section>

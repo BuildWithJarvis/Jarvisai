@@ -51,8 +51,8 @@ async function saveUserProfile(user) {
 }
 
 
-const pages = ['home','chat','write','study','business','saved','settings'];
-const pageNames = {home:'Overview',chat:'Ask Jarvis',write:'Write for me',study:'Study helper',business:'Business helper',saved:'Saved items',settings:'Settings'};
+const pages = ['home','chat','write','study','business','saved','profile','settings'];
+const pageNames = {home:'Overview',chat:'Ask Jarvis',write:'Write for me',study:'Study helper',business:'Business helper',saved:'Saved items',profile:'My Profile',settings:'Settings'};
 const sidebar = document.getElementById('sidebar');
 const toast = document.getElementById('toast');
 
@@ -61,6 +61,13 @@ function showToast(message){
   toast.classList.add('show');
   clearTimeout(showToast.timer);
   showToast.timer = setTimeout(()=>toast.classList.remove('show'),2400);
+}
+const profileButton = document.getElementById('profileBtn');
+
+if (profileButton) {
+  profileButton.addEventListener('click', () => {
+    navigate('profile');
+  });
 }
 function navigate(page){
   if(!pages.includes(page)) return;
