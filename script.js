@@ -62,13 +62,7 @@ function showToast(message){
   clearTimeout(showToast.timer);
   showToast.timer = setTimeout(()=>toast.classList.remove('show'),2400);
 }
-const profileButton = document.getElementById('profileBtn');
 
-if (profileButton) {
-  profileButton.addEventListener('click', () => {
-    navigate('profile');
-  });
-}
 function navigate(page){
   if(!pages.includes(page)) return;
   document.querySelectorAll('.page').forEach(el=>el.classList.toggle('active-page',el.id===`page-${page}`));
@@ -79,7 +73,7 @@ function navigate(page){
 }
 document.querySelectorAll('[data-page]').forEach(el=>el.addEventListener('click',()=>navigate(el.dataset.page)));
 document.getElementById('menuBtn').addEventListener('click',()=>sidebar.classList.toggle('open'));
-document.getElementById('profileBtn').addEventListener('click',()=>showToast('Profile and accounts will be added in a later version.'));
+document.getElementById('profileBtn').addEventListener('click',()=>navigate('profile'));
 
 function addMessage(text,who){
   const wrap=document.createElement('div');
