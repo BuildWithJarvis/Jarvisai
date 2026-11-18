@@ -152,6 +152,7 @@ function showAuthMessage(message) {
 }
 
 
+
 function showWorkspace() {
   document.getElementById('landingPage').style.display = 'none';
   document.getElementById('authScreen').style.display = 'none';
@@ -159,17 +160,25 @@ function showWorkspace() {
 
   const user = auth.currentUser;
   const avatar = document.getElementById('profileBtn');
+  const welcomeName = document.getElementById('welcomeName');
 
-  if (user && avatar) {
-    const name = user.displayName || user.email || 'Jarvis';
-    const initial = name.trim().charAt(0).toUpperCase();
+  if (user) {
+    const name = user.displayName || user.email || 'there';
+    const firstName = name.trim().split(' ')[0];
 
-    avatar.textContent = initial;
-    avatar.setAttribute('aria-label', 'Profile: ' + name);
+    if (welcomeName) {
+      welcomeName.textContent = firstName;
+    }
+
+    if (avatar) {
+      avatar.textContent = firstName.charAt(0).toUpperCase();
+      avatar.setAttribute('aria-label', 'Profile: ' + name);
+    }
   }
 
   navigate('home');
 }
+
 
 
 function showLoginScreen() {
