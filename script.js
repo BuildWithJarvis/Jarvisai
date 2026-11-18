@@ -12,7 +12,14 @@ import {
   signOut
 } from "https://www.gstatic.com/firebasejs/13.3.0/firebase-auth.js";
 
-import { getFirestore } from "https://www.gstatic.com/firebasejs/13.3.0/firebase-firestore.js";
+
+import {
+  getFirestore,
+  doc,
+  setDoc,
+  serverTimestamp
+} from "https://www.gstatic.com/firebasejs/13.3.0/firebase-firestore.js";
+
 const firebaseConfig = {
 apiKey: "AIzaSyA8G_o4VGKX3XYTLBNgaML20r-S6ukXdIc",
 authDomain: "jarvis-ai-96817.firebaseapp.com",
@@ -28,6 +35,21 @@ const auth = getAuth(app);
 const db = getFirestore(app);
 
 console.log("JARVIS AI Firebase initialized successfully!");
+
+async function saveUserProfile(user) {
+  if (!user) return;
+
+  const userRef = doc(db, "users", user.uid);
+
+  await setDoc(userRef, {
+    uid: user.uid,
+    name: user.displayName || "",
+    email: user.email || "",
+    photoURL: user.photoURL || "",
+    updatedAt: serverTimestamp()
+  }, { merge: true });
+}
+
 
 const pages = ['home','chat','write','study','business','saved','settings'];
 const pageNames = {home:'Overview',chat:'Ask Jarvis',write:'Write for me',study:'Study helper',business:'Business helper',saved:'Saved items',settings:'Settings'};
@@ -210,6 +232,7 @@ document.getElementById('signupSubmit').addEventListener('click', async () => {
     await updateProfile(result.user, {
       displayName: name
     });
+    await saveUserProfile(result.user);
 
     showWorkspace();
   } catch (error) {
@@ -230,9 +253,13 @@ document.getElementById('loginSubmit').addEventListener('click', async () => {
   try {
     showAuthMessage('Logging in...');
 
-    await signInWithEmailAndPassword(auth, email, password);
+const result = await signInWithEmailAndPassword(auth, email, password);
 
-    showWorkspace();
+await saveUserProfile(result.user);
+
+showWorkspace();
+
+    
   } catch (error) {
     showAuthMessage(error.message);
   }
@@ -245,9 +272,12 @@ async function googleLogin() {
 
     const result = await signInWithPopup(auth, googleProvider);
 
-    if (result.user) {
-      showWorkspace();
-    }
+    
+if (result.user) {
+  await saveUserProfile(result.user);
+  showWorkspace();
+}
+
   } catch (error) {
     console.error('Google sign-in error:', error);
     showAuthMessage(error.message);
